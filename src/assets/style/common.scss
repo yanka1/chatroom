@@ -1,0 +1,159 @@
+@import './mixin.scss';
+.mt-font-primary{
+  color: $mtFontPrimary;
+}
+.mt-font-secondary{
+  color: $mtFontSecondary;
+}
+.mt-font-tertiary{
+  color: $mtFontTertiary;
+}
+.mt-font-blue{
+  color: $mtFontBlue;
+}
+.mt-font-red{
+  color: $mtFontRed;
+}
+.mt-font-green{
+  color: $mtFontGreen;
+}
+.mt-font-yellow{
+  color: $mtFontYellow;
+}
+.mt-font-white{
+  color: $mtFontWhite;
+}
+.mt-font-white8{
+  color: $mtFontWhite8;
+}
+
+.mt-kline-up{
+  color: $mtKlineUp;
+}
+.mt-kline-down{
+  color: $mtKlineDown;
+}
+.mt-line-normal{
+  color: $mtLineNormal;
+}
+.mt-line-primary{
+  color: $mtLinePrimary;
+}
+.mt-bg-tertiary{
+  background-color: $mtBgTertiary;
+}
+.mt-bg-secondary{
+  background-color: $mtBgSecondary;
+}
+.mt-bg-primary{
+  background-color: $mtBgPrimary;
+}
+.mt-is-redup{
+  .mt-font-up{
+    color: $mtFontRed;
+  }
+  .mt-font-uplighter{
+    color: $mtFontRedLighter;
+  }
+  .mt-font-down{
+    color: $mtFontGreen;
+  }
+  .mt-font-downlighter{
+    color: $mtFontGreenLighter;
+  }
+}
+  
+
+// 
+
+.mt-flex {
+  display: flex;
+}
+.mt-justify-between {
+  justify-content: space-between;
+}
+.mt-justify-center {
+  justify-content: center;
+}
+.mt-justify-around {
+  justify-content: center;
+}
+.mt-align-center {
+  align-items: center;
+}
+
+.mt-flex-wrap{
+  flex-wrap: wrap;
+}
+
+
+
+.display-inbl{
+  display: inline-block;
+}
+.block{
+  display: block;
+}
+
+
+
+
+/* layout */
+.mt-pt-10{
+  padding-top: 10px;
+}
+.mt-pt-20{
+  padding-top: 20px;
+}
+.mt-pb-10{
+  padding-bottom: 10px;
+}
+.mt-pd-20{
+  padding: 20px;
+}
+.mt-pl-10{
+  padding-left: 10px;
+}
+.mt-pr-10{
+  padding-right: 10px;
+}
+.mt-mb-5{
+  margin-bottom: 5px;
+}
+.mt-mr-5{
+  margin-right: 5px;
+}
+.mt-ml-5{
+  margin-left: 5px;
+}
+.mt-mt-20{
+  margin-top: 20px;
+}
+.mt-mb-20{
+  margin-bottom: 20px;
+}
+
+
+/* font*/
+.mt-fw-500 {
+  font-weight: 500;
+}
+.mt-fw-400 {
+  font-weight: 400;
+}
+.mt-fw-600{
+  font-weight: 600;
+}
+
+.mt-fs-12 {
+  font-size: 12px;
+}
+.mt-fs-13 {
+  font-size: 13px;
+}
+.mt-fs-14 {
+  font-size: 14px;
+}
+.mt-fs-16 {
+  font-size: 16px;
+}

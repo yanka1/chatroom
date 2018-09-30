@@ -1,0 +1,39 @@
+// day
+// font
+$mtFontPrimary:#000;
+$mtFontSecondary:#999;
+$mtFontTertiary:#aaa;
+$mtFontBlue:#007aff;
+$mtFontRed:#d93636;
+$mtFontGreen:#23a621;
+$mtFontYellow:#f28218;
+$mtFontWhite:#fff;
+$mtFontWhite8:rgba(255,255,255,.8);
+$mtFontYellow:#f28218;
+
+// $mtFontUp:#d93636;
+$mtFontRedLighter:#de5353;
+// $mtFontDown:#23a621;
+$mtFontGreenLighter:#4fb74d;
+
+// kline
+$mtKlineUp:#db6262;
+$mtKlineDown:#4ca64b;
+
+//  border
+$mtLineNormal:rgba(170,170,170,0.2);
+$mtLinePrimary:rgba(170,170,170,0.5);
+
+//bg
+$mtBgTertiary:#f5f5f5;
+$mtBgSecondary:#fff;
+$mtBgPrimary:#f5f5f5;
+
+//border
+
+@mixin bg-image ($url) {
+  background-image: url($url + "@2x.png");
+  @media(-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3){
+    background-image: url($url + "@3x.png")
+  }
+} 
