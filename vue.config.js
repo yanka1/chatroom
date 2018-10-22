@@ -2,10 +2,10 @@ module.exports = {
   outputDir: process.env.VUE_APP_ENV_CONFIG === 'prod'?'dist':'dist_beta',
   devServer: {
     proxy:{
-      "/walletapi": {
+      "/api/v1": {
         // target: "https://open.api.mytoken.io",
-        target: "https://openapi-hz.mytokenapi.com",
-        pathRewrite: { '^/walletapi': '' }
+        target: "http://127.0.0.1:7001",
+        pathRewrite: { '^/api/v1': '' }
       }
     }
   },

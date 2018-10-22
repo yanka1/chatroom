@@ -3,21 +3,18 @@ import axios from "axios";
 import qs from 'qs'
 
 
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = '';
 axios.defaults.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded";
 //POST传参序列化
 let timer = null;
 var _http = axios.create({
   "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
-  baseURL: process.server ? `http://${process.env.HOST || 'localhost'}:${process.env.PORT || 3000}` : ''
+  baseURL:  process.env.APP_HOST
 });
 _http.interceptors.request.use(
   config => {
     setConfig(config);
-    if (process.server) {
-      config.baseURL = `http://${process.env.HOST || 'localhost'}:${process.env.PORT || 3000}`
-    }
     return config;
   },
   error => {
@@ -75,7 +72,7 @@ export default {
       method: "post",
       url: url,
       data: data,
-      mode: "cros",
+      // mode: "cros",
       timeout: 20000,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
@@ -87,7 +84,7 @@ export default {
       method: "get",
       url: url,
       data,
-      mode: "cros",
+      // mode: "cros",
       timeout: 20000,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"

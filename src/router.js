@@ -13,6 +13,16 @@ export default new Router({
       path: "/",
       name: "home",
       component: Home
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: () => import('@/views/Login.vue')
+    },
+    {
+      path: "/chatroom/:id",
+      name: "chatroom",
+      component: () => import('@/views/ChatRoom.vue')
     }
   ]
 });

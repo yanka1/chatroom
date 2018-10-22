@@ -1,30 +1,36 @@
 <template>
-  <div class="home">
-    <van-swipe class="banners" :autoplay="3000" :height="400">
-      <van-swipe-item
-        v-for="(banner, index) in banners"
-        :key="index"
-      >
-        <img :src="banner.img_url" :alt="banner.name">
-      </van-swipe-item>
-    </van-swipe>
-    <div class="hot-area">
-      <div
-         v-for="(hotRoom, index) in hotRooms"
-        :key="index"
-        class="van-hairline--right van-hairline--bottom"
-      >
-        <img :src="hotRoom.img_url" :alt="hotRoom.name">
-        <p>
-          {{hotRoom.name}}
-        </p>
-      </div>
+  <div class="chatroom">
+    <div class="spark-area">
+      spark-area
     </div>
-    <van-field v-model="msg" placeholder="请输入信息" />
-    <br>
-    <button @click="handleSend()">
-      发送
-    </button>
+    <div class="history-area">
+      <van-list
+        v-model="loading"
+        :finished="finished"
+        @load="handleOnloadMsg"
+      >
+        <div
+          v-for="(msg, index) in msgHistory"
+          :key="index"
+          class="msg"
+          :class="{
+            'is-self-msg': msg.self
+          }"
+        >
+          <span>{{msg.senderUserId}}</span>
+          <span>:</span>
+          <div>{{msg.content.content}}</div> 
+        </div>
+      </van-list>
+    </div>
+    <div >
+      <form class="entry-area" @submit.stop.prevent="handleSend()">
+        <van-field v-model="selfMsg" placeholder="请输入信息" />
+        <button @click.stop.prevent="handleSend()">
+          发送
+        </button>
+      </form>
+    </div>
   </div>
 </template>
 <script>
@@ -94,35 +100,46 @@ let hotRooms = [
 ]
 
 export default {
-  name: "home",
+  name: "chatroom",
   components: {},
   data() {
     return {
-      msg: '',
-      banners,
-      hotRooms
+      // history
+      msgHistory: [],
+      loading: false,
+      finished: true,
+      // entry
+      selfMsg:''
+    }
+  },
+  computed: {
+    newmsg() {
+      return this.$store.state.rongIM.newMsg
+    }
+  },
+  watch: {
+    newmsg(message) {
+      if (message.conversationType === this.$RongIM.RongIMLib.ConversationType.CHATROOM) {
+        this.handleMsgHistory(message)
+      }
     }
   },
   mounted() {
-    setTimeout(() => {
-      this.$RongIM.instance.joinChatRoom('testChat1', 50, {
-        onSuccess(res){
-          console.log(res)
-          console.log('joinChatRoom')
-        },
-        onError(){
-          console.log('joinChatRoom failed')
-        }
-      })
-    }, 1000)
+    let chatRoomId = this.$route.params.id
   },
   methods: {
     handleSend() {
-      let msg = new this.$RongIM.RongIMLib.TextMessage({content:this.msg, extra:"附加信息"});
+      let msg = new this.$RongIM.RongIMLib.TextMessage({content:this.selfMsg, extra:"附加信息"});
       let that = this
       this.$RongIM.instance.sendMessage(this.$RongIM.RongIMLib.ConversationType.CHATROOM,'testChat1', msg, {
         onSuccess: function (message) {
-          //message 为发送的消息对象并且包含服务器返回的消息唯一Id和发送消息时间戳
+          // message 为发送的消息对象并且包含服务器返回的消息唯一Id和发送消息时间戳
+          that.handleMsgHistory({
+            self: true,
+            senderUserId:  that.$store.state.rongIM.user,
+            content: msg
+          })
+          that.selfMsg = ''
           console.log("Send successfully");
         },
         onError: function (errorCode,message) {
@@ -153,40 +170,45 @@ export default {
           console.log('发送失败:' + info);
         }
       })
+    },
+    handleMsgHistory(message) {
+      if(this.msgHistory.length<1000){
+        this.msgHistory.push(message)
+      } else {
+        this.msgHistory.shift()
+        this.msgHistory.push(message)
+      }
+    },
+    handleOnloadMsg() {
+
     }
   }
 }
 </script>
 <style lang="scss" scoped>
 
-.home{
-  .banners{
-    // padding: 10px 0;
-    margin: 5px ;
+.chatroom{
+  .spark-area{
     height: 150px;
-    .van-swipe-item{
-      overflow: hidden;
+    padding: 10px;
+  }
+  .history-area{
+    height: calc(100vh - 200px);
+    padding: 10px;
+    border: 1px solid #eee;
+    overflow: scroll;
+    .msg{
+      display: flex;
     }
-    img{
-      width: 100%;
-      height: 100%;
+    .is-self-msg{
+      // justify-content: flex-end;
+      flex-direction: row-reverse;
     }
   }
-  .hot-area{
+  .entry-area{
     display: flex;
-    padding: 10px;
-    flex: 1;
-    flex-wrap: wrap;
-    // justify-content: space-around;
-    >div {
-      flex-basis: 88px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      img{
-        width: 60px;
-        height: 60px;
-      }
+    button{
+      width: 80px;
     }
   }
 }
